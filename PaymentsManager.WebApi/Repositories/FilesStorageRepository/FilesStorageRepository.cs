@@ -109,7 +109,7 @@ public class FilesStorageRepository : IFIlesStorageRepository
             Id = f.Id.ToString(),
             FileName = f.FileName,
             FilePath = f.FilePath,
-            UploadedAt = f.UploadedAt
+            UploadedAt = f.UploadedAt.ToString("yyyy-MM-dd"),
         })
         .ToListAsync();
 
@@ -154,7 +154,7 @@ public class FilesStorageRepository : IFIlesStorageRepository
                     Id = "123",
                     FileName = exampleFilePath,
                     FilePath = blobClient.Uri.AbsoluteUri,
-                    UploadedAt = DateTime.Now
+                    UploadedAt = DateTime.Now.ToString("yyyy-MM-dd")
                 };
             }
             else
