@@ -5,12 +5,10 @@ const ProtectedAdminRoute = () => {
     const userRole = useUserCredencials((state)=>state.userRole);
     const userIsAuthenticated = useUserCredencials((state)=>state.userIsAuthenticated);
     const userCredencials = useUserCredencials((state)=>state.userCredencials);
-    if(!userIsAuthenticated && !userCredencials && userRole !== 'Admin'){
-        return <Navigate to='/login'/>
+    if(userIsAuthenticated && userCredencials && userRole === 'Admin'){
+        return <Outlet/>
     }    
-    return (
-        <Outlet/>
-  )
+    return <Navigate to='/login'/>
 }
 
 export default ProtectedAdminRoute

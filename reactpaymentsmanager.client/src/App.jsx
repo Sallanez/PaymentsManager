@@ -6,23 +6,34 @@ import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from "./pages/Dashboard";
 import Payments from "./pages/Payments";
 import ProtectedAdminRoute from "./Routes/ProtectedAdminRoute";
+import Navbar from "./components/shared/Navbar";
+import Footer from "./components/shared/Footer";
+import ProtectedUserRoute from "./Routes/ProtectedUserRoute";
+import PaymentsSearch from "./pages/PaymentsSearch";
 
 function App() {
   return (
     <>
-      <main className="w-full fulls-h-screen">
+      <div className="flex flex-col justify-between h-screen">
         <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<HomePage/>}/>
-          <Route path='/login' element={<LoginPage/>}/>
-          <Route path='*' element={<h1>Not Found</h1>} />
-          <Route element={<ProtectedAdminRoute/>}>
-            <Route path='/dashboard' element={<Dashboard/>} />
-          </Route>
-          <Route path='/payments' element={<Payments/>} />
-        </Routes>
+          <Navbar/>
+          <main className="container flex-grow px-3 pb-12 mx-auto">
+              <Routes>
+                <Route path='/' element={<HomePage/>}/>
+                <Route path='/login' element={<LoginPage/>}/>
+                <Route path='*' element={<h1>Not Found</h1>} />
+                <Route element={<ProtectedAdminRoute/>}>
+                  <Route path='/dashboard' element={<Dashboard/>} />
+                </Route>
+                <Route element={<ProtectedUserRoute/>}>
+                  <Route path='/payments' element={<Payments/>} />
+                  <Route path='/payments/search' element={<PaymentsSearch/>} />
+                </Route>
+              </Routes>
+          </main>
         </BrowserRouter>
-      </main>
+        <Footer/>
+      </div>
       <ToastContainer/>
     </>
   )

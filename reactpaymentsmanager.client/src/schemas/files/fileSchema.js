@@ -1,15 +1,18 @@
 import z from "zod";
 
-const MAX_FILE_SIZE = 400000;
-const ACCEPTED_FILE_TYPES = ["csv"];
+const MAX_FILE_SIZE = 500000;
+const ACCEPTED_FILE_TYPES = ['text/csv', 'application/vnd.ms-excel']; 
 
 export const fileRegistrationSchema = z.object({
   profileCsv: z
-    .any()
-    .refine((files) => files?.length == 1, "File is required.")
-    .refine((files) => files?.[0]?.size <= MAX_FILE_SIZE, `Max file size is 5MB.`)
+    .array(z.instanceof(File))
+    .nonempty("File is required.")
+    .refine((files) => files[0].size <= MAX_FILE_SIZE, { message: "Max file size is 400KB." })
     .refine(
-      (files) => ACCEPTED_FILE_TYPES.includes(files?.[0]?.type),
-      "only .csv files are accepted."
+      (files) => {
+        const fileType = files[0].type;
+        return ACCEPTED_FILE_TYPES.includes(fileType) || files[0].name.endsWith('.csv');
+      },
+      { message: "Only .csv files are accepted." }
     ),
 });

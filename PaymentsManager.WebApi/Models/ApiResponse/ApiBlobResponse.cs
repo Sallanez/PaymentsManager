@@ -6,9 +6,9 @@ public class ApiBlobResponse
 {
     public ApiBlobResponse()
     {
-        Blod = new BlobDTO();
+        Blod = new ApiSpreedSheetFilesResponse();
     }
     public string? Status { get; set; }
     public bool Error { get; set; }
-    public BlobDTO Blod { get; set; }
+    public ApiSpreedSheetFilesResponse Blod { get; set; }
 }

@@ -1,21 +1,15 @@
 import { toast } from "react-toastify";
-import {getAllSpreedSheetFilesRequest,deleteSpreedSheetFileRequest} from "../../api/files";
+import {deleteSpreedSheetFileRequest} from "../../api/files";
 import { useUserCredencials } from "../../store/userAuth";
-import { useEffect,useState } from "react";
+import { useSpreedSheetFiles } from "../../store/spreedSheetFiles";
+
 
 const TableDashboard = () => {
     const userCredencials = useUserCredencials((state)=>state.userCredencials);
-    const [spreedSheetFiles,setSpreedSheetFiles] = useState([]);
-    useEffect(()=>{
-        getAllSpreedSheetFilesRequest(userCredencials.token)
-        .then((response)=>{
-            setSpreedSheetFiles(response.data);
-        })
-        .catch((error)=>{
-            console.log(error);
-        })
-    },[userCredencials.token])
-
+    const setSpreedSheetFiles = useSpreedSheetFiles((state)=>state.setSpreedSheetFiles);
+    const spreedSheetFiles = useSpreedSheetFiles((state)=>state.spreedSheetFiles);
+    
+    console.dir(spreedSheetFiles);
     const DeleteHandler = async (id) => {
         const res = await deleteSpreedSheetFileRequest(id,userCredencials.token);
         if(res.status === 200){
@@ -27,7 +21,7 @@ const TableDashboard = () => {
     }
 
     return (
-        <div className="overflow-x-auto">
+        <div className="w-2/3 overflow-x-auto">
             <table className="table">
                 <thead>
                     <tr>
@@ -40,7 +34,7 @@ const TableDashboard = () => {
                 <tbody>
                     {
                         spreedSheetFiles.map((file,index)=>{
-                            return (
+                        return (
                                 <tr key={file.id}>
                                     <th>{index + 1}</th>
                                     <td>

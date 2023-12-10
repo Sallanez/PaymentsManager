@@ -38,6 +38,7 @@ public class FilesStorageRepository : IFIlesStorageRepository
     {
        
        BlobClient client = filesContainer.GetBlobClient(file.FileName);
+       SpreedSheetFile spreedSheetFile = new();
        await using (Stream? stream = file.OpenReadStream())
        {
             using var reader = new StreamReader(stream);
@@ -61,7 +62,7 @@ public class FilesStorageRepository : IFIlesStorageRepository
 
             var spreedSheetFileId = Guid.NewGuid();
 
-            var spreedSheetFile = new SpreedSheetFile
+            spreedSheetFile = new SpreedSheetFile
             {
                 Id = spreedSheetFileId,
                 FileName = file.FileName,
@@ -97,8 +98,10 @@ public class FilesStorageRepository : IFIlesStorageRepository
             stream.Position = 0;
             await client.UploadAsync(stream, true);
        }
-       apiBlobResponse.Blod.Uri = client.Uri.AbsoluteUri;
-       apiBlobResponse.Blod.FileName = client.Name;
+       apiBlobResponse.Blod.Id = spreedSheetFile.Id.ToString();
+       apiBlobResponse.Blod.FilePath = spreedSheetFile.FilePath;
+       apiBlobResponse.Blod.FileName = spreedSheetFile.FileName;
+       apiBlobResponse.Blod.UploadedAt = spreedSheetFile.UploadedAt.ToString("yyyy-MM-dd");
        apiBlobResponse.Status = $"File {file.FileName} uploaded successfully";
        return apiBlobResponse;
     }
