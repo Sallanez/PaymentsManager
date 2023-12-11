@@ -7,12 +7,12 @@ export const fileRegistrationSchema = z.object({
   profileCsv: z
     .array(z.instanceof(File))
     .nonempty("File is required.")
-    .refine((files) => files[0].size <= MAX_FILE_SIZE, { message: "Max file size is 400KB." })
+    .refine((files) => files[0].size <= MAX_FILE_SIZE, { message: "Tamaño máximo 500KB." })
     .refine(
       (files) => {
         const fileType = files[0].type;
         return ACCEPTED_FILE_TYPES.includes(fileType) || files[0].name.endsWith('.csv');
       },
-      { message: "Only .csv files are accepted." }
+      { message: "Solo se aceptan archivos .csv" }
     ),
 });

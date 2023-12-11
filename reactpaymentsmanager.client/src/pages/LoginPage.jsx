@@ -69,16 +69,16 @@ const LoginPage = () => {
                         </label>
                         <input type="email" placeholder="email" className="input input-bordered" {...register("email",{required:true})} />
                         {
-                            errors.email && <span className="mt-2 text-xs text-error">Email is required</span>
+                            errors.email && <span className="mt-2 text-xs text-error">Email es requerido</span>
                         }
                     </div>
                     <div className="form-control">
                         <label className="label">
-                            <span className="label-text">Password</span>
+                            <span className="label-text">Contraseña</span>
                         </label>
                         <input type="password" placeholder="password" className="input input-bordered" {...register("password",{required:true})} />
                         {
-                            errors.password && <span className="mt-2 text-xs text-error">Password is required</span>
+                            errors.password && <span className="mt-2 text-xs text-error">Password es requerido</span>
                         }
                     </div>
                     <div className="mt-6 form-control">

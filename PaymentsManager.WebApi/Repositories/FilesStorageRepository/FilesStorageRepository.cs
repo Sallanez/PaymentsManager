@@ -137,7 +137,7 @@ public class FilesStorageRepository : IFIlesStorageRepository
     }
     public async Task<ApiSpreedSheetFilesResponse> GetSpreedSheetExampleAsync()
     {
-        string exampleFilePath = "Example/payment_example.csv";
+        string exampleFilePath = "Example/payment_example.xlsx";
 
         try
         {

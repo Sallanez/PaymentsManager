@@ -9,14 +9,14 @@ const TableDashboard = () => {
     const setSpreedSheetFiles = useSpreedSheetFiles((state)=>state.setSpreedSheetFiles);
     const spreedSheetFiles = useSpreedSheetFiles((state)=>state.spreedSheetFiles);
     
-    console.dir(spreedSheetFiles);
     const DeleteHandler = async (id) => {
-        const res = await deleteSpreedSheetFileRequest(id,userCredencials.token);
-        if(res.status === 200){
+        try{
+            await deleteSpreedSheetFileRequest(id,userCredencials.token);
             toast.success("Archivo eliminado");
             setSpreedSheetFiles(spreedSheetFiles.filter((file)=>file.id !== id));
-        }else{
+        }catch(error){
             toast.error("Error al eliminar el archivo");
+            console.error(error);
         }
     }
 
@@ -33,22 +33,28 @@ const TableDashboard = () => {
                 </thead>
                 <tbody>
                     {
-                        spreedSheetFiles.map((file,index)=>{
-                        return (
-                                <tr key={file.id}>
-                                    <th>{index + 1}</th>
-                                    <td>
-                                        <a className="cursor hover:text-red-300" href={file.filePath} download>
-                                        {file.fileName}
-                                    </a>
-                                    </td>
-                                    <td>{file.uploadedAt}</td>
-                                    <td>
-                                        <button className="btn btn-active btn-secondary" onClick={()=>DeleteHandler(file.id)}>Eliminar</button>
-                                    </td>
-                                </tr>
-                            )
-                        })
+                        spreedSheetFiles.length > 0 ? (
+                            spreedSheetFiles.map((file,index)=>{
+                                return (
+                                    <tr key={file.id} className="hover:cursor-pointer hover">
+                                        <th>{index + 1}</th>
+                                        <td>
+                                            <a className="cursor hover:text-red-300" href={file.filePath} download>
+                                            {file.fileName}
+                                        </a>
+                                        </td>
+                                        <td>{file.uploadedAt}</td>
+                                        <td>
+                                            <button className="btn btn-active btn-secondary" onClick={()=>DeleteHandler(file.id)}>Eliminar</button>
+                                        </td>
+                                    </tr>
+                                )
+                            })
+                        ) : (
+                            <tr>
+                                <td colSpan="4" className="text-center">No hay archivos cargados</td>
+                            </tr>
+                        )
                     }
                 </tbody>
             </table>

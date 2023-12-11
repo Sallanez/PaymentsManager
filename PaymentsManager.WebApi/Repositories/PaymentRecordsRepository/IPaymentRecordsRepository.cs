@@ -1,8 +1,8 @@
-﻿using PaymentsManager.WebApi.Models.Domain;
+﻿using PaymentsManager.WebApi.Models.ApiResponse;
 
 namespace PaymentsManager.WebApi.Repositories.PaymentRecordsRepository;
 
 public interface IPaymentRecordsRepository
 {
-    Task<List<PaymentRecord>> GetPaymentRecordsAsync(Guid userId);
+    Task<List<ApiPaymentRecordsResponse>> GetPaymentRecordsAsync(Guid userId);
 }

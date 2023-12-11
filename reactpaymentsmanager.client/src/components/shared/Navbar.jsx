@@ -34,7 +34,9 @@ const Navbar = () => {
         <nav className="navbar bg-base-100">
             <div className="ml-8 navbar-start">
                 <div className="flex flex-col md:flex-row con">
-                    <a className="text-xl btn btn-ghost">Adminstrador de Pagos</a>
+                    <a className="text-xl btn btn-ghost" onClick={()=>{
+                        navigate('/');
+                    }}>Adminstrador de Pagos</a>
                     {
                         userIsAuthenticated && userRole !== null && userCredencials !== null && (
                             <div className="flex flex-col items-center gap-2 mt-6 md:mt-0 md:flex-row">

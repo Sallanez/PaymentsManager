@@ -1,5 +1,5 @@
-import { Navigate,Outlet } from "react-router"
-import {useUserCredencials} from '../store/userAuth'
+import { Navigate,Outlet } from "react-router";
+import {useUserCredencials} from '../store/userAuth';
 
 const ProtectedAdminRoute = () => {
     const userRole = useUserCredencials((state)=>state.userRole);

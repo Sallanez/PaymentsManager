@@ -1,22 +1,48 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { dateFormSchema } from "../../schemas/payments/dateFormSchema";
+import {useUserCredencials} from '../../store/userAuth';
 import {useDateForm} from '../../store/payments';
+import {useRecords} from '../../store/payments';
+import {getAllSpreedSheetFilesRequest} from "../../api/payments"
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 const DateFormSearch = () => {
     const navigate = useNavigate();
-    const setDateForm = useDateForm((state)=>state.setDateForm);
 
     const {register,handleSubmit,formState:{errors}} = useForm({
         resolver: zodResolver(dateFormSchema),
     });
 
+    const setDateForm = useDateForm((state)=>state.setDateForm);
+    const userCredencials = useUserCredencials((state)=>state.userCredencials);
+    const setPaymentRecords = useRecords((state)=>state.setPaymentRecords);
+    const setFilteredPaymentRecords = useRecords((state)=>state.setFilteredPaymentRecords);
+
     const onSubmit = async (values) => {
         if(values.month && values.year)
         {
-            setDateForm({month:values.month,year:String(values.year)});
-            navigate('/payments');
+            try{
+                const res = await getAllSpreedSheetFilesRequest(userCredencials.token);
+                if(res.data.length > 0){
+                    setPaymentRecords(res.data);
+                    setDateForm(values);
+                    const combinedDate = `${String(values.year)}-${values.month}`;
+                    
+                    // Filter paymentRecords based on spreedsheetDate matching combinedDate
+                    const filteredPayments = res.data.filter(record => record.spreadSheetDate.substring(0, 7) === combinedDate);
+                    setFilteredPaymentRecords(filteredPayments);
+                    toast.success(`${filteredPayments.length} registros encontrados para ${values.month}/${String(values.year)}`);
+                }else{
+                    toast.warning("No hay registros de pagos");
+                }
+            }catch(error){
+                console.error(`${error.message}`);
+                toast.error("Error al obtener los registros de pagos");
+            }finally{
+                navigate('/payments');
+            }
         }
     }
 

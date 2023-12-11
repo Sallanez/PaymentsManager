@@ -10,6 +10,7 @@ import Navbar from "./components/shared/Navbar";
 import Footer from "./components/shared/Footer";
 import ProtectedUserRoute from "./Routes/ProtectedUserRoute";
 import PaymentsSearch from "./pages/PaymentsSearch";
+import ProtectedUserPayments from "./Routes/ProtectedUserPayments";
 
 function App() {
   return (
@@ -26,8 +27,10 @@ function App() {
                   <Route path='/dashboard' element={<Dashboard/>} />
                 </Route>
                 <Route element={<ProtectedUserRoute/>}>
-                  <Route path='/payments' element={<Payments/>} />
                   <Route path='/payments/search' element={<PaymentsSearch/>} />
+                  <Route element={<ProtectedUserPayments/>}>
+                    <Route path='/payments' element={<Payments/>} />
+                  </Route>
                 </Route>
               </Routes>
           </main>
