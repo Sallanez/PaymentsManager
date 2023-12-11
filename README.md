@@ -63,7 +63,7 @@ Once executed, the DataBases will be created in your local machine.
 #### Auth to App
 
 ```http
-  POST /api/auth/login
+POST /api/auth/login
 ```
 
 Gives access to the application.
@@ -106,7 +106,7 @@ Include this in your headers:
 #### Get list of files
 
 ```http
-  GET /api/files/list
+GET /api/files/list
 ```
 
 Return all the file records stored in the database.
