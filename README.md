@@ -6,6 +6,14 @@ PaymentsManager is a web application that provides a centralized platform for ma
 
 To store files and payment records in the PaymentsManager project, Azure Blob Storage is used. Azure Blob Storage is a cloud-based storage solution provided by Microsoft Azure. It allows you to store and retrieve large amounts of unstructured data, such as files, images, and documents.
 
+## Front-End configuration
+
+In the reactpaymentsmanager.client, you will need to include a .env file in the root of the project with the url. For local testing, you can add this line:
+
+```dotenv
+VITE_API_URL=http://localhost:5266/api
+```
+
 ## Connection to DataBase 📜
 
 Then the connection to the database you will need to add a 'ConnectionStrings' with the "Manage User Secrets" options of VS community,
