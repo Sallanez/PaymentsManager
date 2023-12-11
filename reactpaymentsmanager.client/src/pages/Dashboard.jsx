@@ -35,6 +35,7 @@ const Dashboard = () => {
     const SubmitHandler = async (file) => {
       try{
         const formData = new FormData();
+        
         formData.append("file",file.csvFile[0]);
         const res = await uploadSpreedSheetFileRequest(formData,userCredencials.token);
         if(res.status === 200){
