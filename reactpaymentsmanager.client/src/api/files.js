@@ -1,7 +1,7 @@
 import axios from "axios";
 import {configHeaders} from "../utils/userTokenAuth";
 
-const API = "http://localhost:5266/api";
+const API = import.meta.env.VITE_API_URL;
 
 export const uploadSpreedSheetFileRequest = (file,token) => axios.post(`${API}/files`,file,configHeaders(token));
 

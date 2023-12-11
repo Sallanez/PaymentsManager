@@ -54,7 +54,7 @@ const LoginPage = () => {
             }
             toast.success("Bienvenido");
         }catch(error){
-            console.log(error);
+            console.error(error);
             toast.error("Credenciales incorrectas");
         }
     }

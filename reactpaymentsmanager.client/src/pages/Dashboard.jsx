@@ -52,9 +52,7 @@ const Dashboard = () => {
     const handleDownloadExample = async () => {
       try {
         const response = await getFileExampleRequest(userCredencials.token);
-        console.log(response.data.filePath);
         const downloadUrl = response.data.filePath;
-        console.log(downloadUrl);
         const link = document.createElement('a');
         link.href = downloadUrl;
         link.setAttribute('download', 'example_paymment.xlsx');
@@ -64,7 +62,7 @@ const Dashboard = () => {
         link.remove();
         window.URL.revokeObjectURL(downloadUrl);
         toast.success('Descarga iniciada.');
-      } catch (error) {
+      }catch (error) {
         console.error('Error downloading the example file:', error);
         toast.error('Error al descargar el ejemplo');
       }
@@ -82,7 +80,7 @@ const Dashboard = () => {
           <div className="modal-box">
             <h3 className="text-lg font-bold">Cargar archivo .csv</h3>
             <div className="my-2">
-              <p className="text-sm text-center md:text-left">Puedes usar este ejemplo como guia: <span href="#!" className="ml-2 cursor-pointer btn btn-prima" onClick={handleDownloadExample}>ejemplo.csv</span></p>
+              <p className="text-sm text-center md:text-left">Puedes usar este ejemplo como guia: <span href="#!" className="ml-2 cursor-pointer btn btn-prima" onClick={handleDownloadExample}>ejemplo.xlsx</span></p>
               <p className="my-2 text-sm text-center md:text-left">Después de editarlo, recuerda guardar el archivo en formato .csv</p>
             </div>
             <div className="flex justify-center mt-2 modal-action">
