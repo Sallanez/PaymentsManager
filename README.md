@@ -2,6 +2,15 @@
 
 PaymentsManager is a web application that provides a centralized platform for managing payments. It includes a Web API component located in the './paymentsManager.WebApi' directory, which serves as the backend for the application. The Web API handles various payment-related operations, such as uploading payment records and retrieving payment information. It also integrates with external payment gateways to facilitate secure and seamless transactions. The PaymentsManager project aims to simplify payment management processes and enhance the overall user experience.
 
+## Application users
+
+| Email             | Password                                                                |
+| ----------------- | ------------------------------------------------------------------ |
+| admin@mail.com | AdminPassword@123 |
+| pepe@mail.com | Colla1Password@123 |
+| alvaro@mail.com | Colla2Password@123 |
+
+
 ## Azure Blob Storage 🗃️
 
 To store files and payment records in the PaymentsManager project, Azure Blob Storage is used. Azure Blob Storage is a cloud-based storage solution provided by Microsoft Azure. It allows you to store and retrieve large amounts of unstructured data, such as files, images, and documents.
